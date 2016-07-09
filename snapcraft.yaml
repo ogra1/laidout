@@ -1,0 +1,40 @@
+name: laidout
+version: 0.096.1
+summary: This is my-snap's summary  # 79 char long summary
+description: This is my-snap's description  # a longer description for the snap
+confinement: devmode  # use "strict" to enforce system access only via declared interfaces
+
+apps:
+    laidout:
+      command: ./wrapper.sh
+      plugs: [home, x11, unity7]
+
+parts:
+    build:
+      source: ./
+      plugin: make
+      build-packages:
+        - bzip2
+        - dpkg
+        - tar
+        - wget
+      stage-packages:
+        - libcairo2
+        - libcups2
+        - libfontconfig1
+        - libfreetype6
+        - libftgl2
+        - libgcc1
+        - libglu1-mesa
+        - libgraphicsmagick++-q16-12
+        - libimlib2
+        - libpng12-0
+        - libreadline6
+        - libsqlite3-0
+        - libssl1.0.0
+        - libstdc++6
+        - libx11-6
+        - libxext6
+        - libxft2
+        - libxi6
+      after: [ desktop/gtk2 ]

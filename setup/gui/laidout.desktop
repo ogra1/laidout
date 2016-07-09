@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=LaidOut
+Comment=Desktop publishing software
+Icon=${SNAP}/meta/gui/icon.png
+Exec=laidout
+Terminal=false
+Categories=Utility;

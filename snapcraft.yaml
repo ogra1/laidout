@@ -1,5 +1,5 @@
 name: laidout
-version: 0.096.1-1
+version: 0.096.1-2
 summary: Desktop Publishing
 description: Laidout is desktop publishing software built from the ground up with imposition in mind.
 confinement: strict

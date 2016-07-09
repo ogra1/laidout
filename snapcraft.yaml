@@ -1,13 +1,13 @@
 name: laidout
 version: 0.096.1
-summary: This is my-snap's summary  # 79 char long summary
-description: This is my-snap's description  # a longer description for the snap
-confinement: devmode  # use "strict" to enforce system access only via declared interfaces
+summary: Desktop Publishing
+description: Laidout is desktop publishing software built from the ground up with imposition in mind.
+confinement: strict
 
 apps:
     laidout:
       command: ./wrapper.sh
-      plugs: [home, x11, unity7]
+      plugs: [home, x11]
 
 parts:
     build:

@@ -2,4 +2,4 @@
 
 cd $SNAP_USER_DATA
 
-desktop-launch $SNAP/usr/bin/laidout
+desktop-launch $SNAP/usr/bin/laidout "$@"

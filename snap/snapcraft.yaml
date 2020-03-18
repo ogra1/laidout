@@ -7,6 +7,10 @@ base: core18
 confinement: strict
 grade: stable
 
+architectures:
+  - build-on: amd64
+    run-on: amd64
+
 apps:
     laidout:
       command: desktop-launch $SNAP/usr/bin/laidout

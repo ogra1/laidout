@@ -1,0 +1,81 @@
+name: laidout
+adopt-info: laidout
+summary: Desktop Publishing
+description: Laidout is desktop publishing software built from the ground up with imposition in mind.
+
+base: core18
+confinement: strict
+grade: stable
+
+apps:
+    laidout:
+      command: desktop-launch $SNAP/usr/bin/laidout
+      desktop: usr/share/applications/laidout.desktop
+      plugs:
+        - desktop
+        - home
+        - unity7
+        - x11
+
+layout:
+  /usr/share/laidout:
+    bind: $SNAP/usr/share/laidout
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/babl-0.1:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/babl-0.1
+
+parts:
+  desktop-glib-only:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
+    plugin: make
+    build-packages:
+      - libglib2.0-dev
+    stage-packages:
+      - libglib2.0-bin
+  laidout:
+    source: .
+    plugin: nil
+    after: [ desktop-glib-only ]
+    override-pull: |
+      URL="https://api.github.com/repos/Laidout/laidout/releases/latest"
+      DEB="$(wget -q -nv -O- $URL 2>/dev/null | \
+      jq -r '.assets[] | select(.browser_download_url | contains("amd64.deb")) | .browser_download_url' | \
+                          tail -1)"
+      wget $DEB
+      dpkg -x *.deb .
+      sed -i 's;^Icon=.*;Icon=/usr/share/icons/hicolor/48x48/apps/laidout.png;g' \
+      usr/share/applications/laidout.desktop
+      VER="$(ls laidout*.deb | cut -d '_' -f2)"
+      snapcraftctl set-version $VER
+    override-build: |
+      cp -av usr $SNAPCRAFT_PART_INSTALL
+    build-packages:
+      - bzip2
+      - dpkg
+      - jq
+      - tar
+      - wget
+    stage-packages:
+      - freeglut3
+      - libbabl-0.1-0
+      - libcairo2
+      - libcups2
+      - libfontconfig1
+      - libfreetype6
+      - libftgl2
+      - libgcc1
+      - libgegl-0.3-0
+      - libgl1
+      - libglu1-mesa
+      - libgraphicsmagick++-q16-12
+      - libharfbuzz0b
+      - libimlib2
+      - libreadline7
+      - libslang2
+      - libsqlite3-0
+      - libssl1.0.0
+      - libstdc++6
+      - libx11-6
+      - libxext6
+      - libxft2
+      - libxi6 
